@@ -17,7 +17,7 @@ gulp.task('serve', ['style'], function () {
     var options = {
         script: 'app.js',
         delayTime: 1,
-        env: { 'PORT': process.env.PORT },
+        env: { 'PORT': process.env.PORT || 3000 },
         watch: jsFiles
     };
     return nodemon(options)
