@@ -1,31 +1,18 @@
 'Use Strict';
 
-const indexController = function () {
+const fs = require('fs');
+const path = require('path');
+const deepDiff = require('deep-diff');
+
+const indexController = function (getDataService) {
     var getData = function (req, res) {
-        var sql = require('mssql');
-    
-        // Database config.
-        var config = {
-            user: process.env.dbusr,
-            password: process.env.dbpass,
-            server: process.env.dbsvr,
-            database: process.env.db
-        };
-    
-        // Connect to database.
-        sql.connect(config, function (err) {
-            if (err) console.log(err);
-    
-            // Create request object.
-            var request = new sql.Request();
-    
-            // Query to the database and get the records.
-            request.query(process.env.dbsql, function (err, recordset) {
-                if (err) console.log(err);
-    
-                // Send records as a response.
-                res.send(recordset);
-            });
+        getDataService.getData(function (err, results) {
+            if (err) res.status(500).send(err);
+
+            var newData = results.recordset;
+            var previousData = JSON.parse(fs.readFileSync(__dirname + '/../data/previousData.json'));
+            // returning an object, not json
+            res.send(previousData);
         });
     };
 
