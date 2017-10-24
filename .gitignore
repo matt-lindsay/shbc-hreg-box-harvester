@@ -62,4 +62,4 @@ typings/
 package-lock.json
 
 # Stored Data
-data/
+src/data/
