@@ -60,3 +60,6 @@ typings/
 # vscode folders
 .vscode
 package-lock.json
+
+# Stored Data
+data/
