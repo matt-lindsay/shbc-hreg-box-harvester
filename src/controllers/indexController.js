@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const diff = require('deep-diff');
+const arrayDiffer = require('array-differ');
 
 const indexController = function (getDataService) {
     var getData = function (req, res) {
@@ -11,21 +11,16 @@ const indexController = function (getDataService) {
 
             // New data from H Reg database in JSON format.
             var newData = results.recordset;
+            // Sort new data.
+            var newSortedData = [];
+            newData.forEach(function (item) {
+                newSortedData.push(item.HREG);
+            });
             // Data from last program execution stored in JSON format.
             var storedData = JSON.parse(fs.readFileSync(__dirname + '/../data/previousData.json'));
             // Comparison of new and stored JSON datasets.
-            var differences = diff(storedData.sort(), newData.sort());
-            // Newly added JSON objects.
-            var recordsToInsert = [];
-            differences.forEach(function (item) {
-                if (item.item) {//recordsToInsert.push(item);
-                    if (item.item.kind === 'N') {
-                        console.log(item);
-                        recordsToInsert.push(item.item.rhs);
-                    }
-                }
-            });
-
+            var differences = arrayDiffer(newSortedData, storedData);
+      
             res.send(differences);
         });
     };

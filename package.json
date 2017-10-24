@@ -4,8 +4,8 @@
   "description": "Harvest H Reg numbers to create case folders in Box.",
   "main": "app.js",
   "dependencies": {
+    "array-differ": "^2.0.3",
     "body-parser": "^1.18.2",
-    "deep-diff": "^0.3.8",
     "express": "^4.16.2",
     "moment": "^2.19.0",
     "mssql": "^4.1.0"
