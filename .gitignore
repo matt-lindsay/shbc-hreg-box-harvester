@@ -63,3 +63,11 @@ package-lock.json
 
 # Stored Data
 src/data/
+
+# Keys
+private_key.pem
+public_key.pem
+
+# Other
+shbc-hreg-box-harvester.7z
+sdkTest/

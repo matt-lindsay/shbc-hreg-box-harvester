@@ -6,6 +6,7 @@
   "dependencies": {
     "array-differ": "^2.0.3",
     "body-parser": "^1.18.2",
+    "box-node-sdk": "^1.9.0",
     "express": "^4.16.2",
     "moment": "^2.19.0",
     "mssql": "^4.1.0"

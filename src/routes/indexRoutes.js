@@ -3,7 +3,7 @@
 const express = require('express');
 const indexRouter = express.Router();
 
-var router = function () {
+var router = function (client) {
     var getDataService = require('../services/getDataService')();
     var indexController = require('../controllers/indexController')(getDataService);
 

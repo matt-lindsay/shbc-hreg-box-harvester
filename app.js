@@ -1,10 +1,12 @@
 'Use Strict';
 
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const app = express();
 var port = process.env.PORT || 3000;
+
 var indexRouter = require('./src/routes/indexRoutes')();
 var yearDateFormat = 'YYYY';
 
