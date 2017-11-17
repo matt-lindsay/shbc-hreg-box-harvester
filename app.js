@@ -6,8 +6,11 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const app = express();
 var port = process.env.PORT || 3000;
+var boxClient = require('./box');
 
-var indexRouter = require('./src/routes/indexRoutes')();
+var box = new boxClient();
+
+var indexRouter = require('./src/routes/indexRoutes')(box);
 var yearDateFormat = 'YYYY';
 
 app.use(bodyParser.json());

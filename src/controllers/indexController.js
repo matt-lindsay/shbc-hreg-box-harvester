@@ -2,15 +2,18 @@
 
 const fs = require('fs');
 const path = require('path');
+const moment = require('moment');
 const arrayDiffer = require('array-differ');
-const BoxService = require('../services/BoxService');
+const BoxHRegService = require('../services/BoxHRegService');
+const BoxHTaskService = require('../services/BoxHTaskService');
 
-var indexController = function (getDataService) {
+var indexController = function (getDataService, client) {
     
     var getData = function (req, res) {
         getDataService.getData(function (err, results) {
             if (err) res.status(500).send(err);
 
+            let timestamp = moment().format('YYYY-MM-DD h:mm:ss a');
             // New data from H Reg database in JSON format.
             let newData = results.recordset;
             // Sort new data.
@@ -23,12 +26,12 @@ var indexController = function (getDataService) {
             // Comparison of new and stored JSON datasets.
             let differences = arrayDiffer(newSortedData, storedData);
             if (differences.length == 0) {
-                console.log('>>> No New Data.');
+                console.log('>>> ' + timestamp + ' No New Data.');
                 res.status(200).send(JSON.stringify('No new data.'));
             } else {
                 // Box.
-                var box = new BoxService();
-                box.createFolders(differences, function (err, result) {
+                var hregBox = new BoxHRegService(client);
+                hregBox.createFolders(differences, function (err, result) {
                     res.status(201).send(result);
                     // Overwrite previousData.json
                     fs.writeFileSync(__dirname + '/../data/previousData.json', JSON.stringify(newSortedData), { encoding: 'utf-8' });
@@ -37,8 +40,20 @@ var indexController = function (getDataService) {
         });
     };
 
+    var postTask = function (req, res) {
+        let data = req.body;
+
+        // Box.
+         var htaskBox = new BoxHTaskService(client);
+         htaskBox.createTaskFolders(data, function (err, result) {
+            if (err) res.status(500).send(err);
+            res.status(201).send(result);
+         });
+    };
+
     return {
-        getData: getData
+        getData: getData,
+        postTask: postTask
     };
 };
 module.exports = indexController;

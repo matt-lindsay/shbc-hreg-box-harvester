@@ -1,33 +1,12 @@
 'Use Strict';
 
 const fs = require('fs');
-const Box = require('box-node-sdk');
 const moment = require('moment');
+const boxHousingFolder = process.env.boxHousingFolder;
 
-var BoxService = function () {
-    
-    var boxClientID = process.env.boxClientID;
-    var boxClientSecret = process.env.boxClientSecret;
-    var privateKey = process.env.boxPrivateKey;
-    var publicKeyId = process.env.boxKeyID;
-    var publicKeyPassphrase = process.env.boxKeyPassphrase;
-    var boxEnterpriseId = process.env.boxEnterpriseId;
-    var boxHousingUser = process.env.boxHousingUser;
-    var boxHousingFolder = process.env.boxHousingFolder;
+var BoxHRegService = function (client) {
 
     var createFolders = function (data, cb) {
-        var sdk = new Box({
-            clientID: boxClientID,
-            clientSecret: boxClientSecret,
-            appAuth: {
-                keyID: publicKeyId,
-                privateKey: privateKey,
-                passphrase: publicKeyPassphrase
-            }
-        });
-
-        var client = sdk.getAppAuthClient('enterprise', boxEnterpriseId);
-        client.asUser(boxHousingUser);
         
         // Create folders from 'data' array.
         // Sub folders to be created are stored in a JSON file.
@@ -51,20 +30,6 @@ var BoxService = function () {
                 if (queryResponse.total_count === 0) {
                     createBoxFolders(client, folderName, subFolders, timestamp);
                     results = true;
-
-                    // client.folders.create(boxHousingFolder, folderName, function (err, createResponse) {
-                    //     let createdFolderName = createResponse.name;
-                    //     let createdFolderId = createResponse.id;
-
-                    //     console.log('>>> Folder created: ' + createdFolderName);                        
-                    //     subFolders.forEach(function (subFolderName) {
-                    //         client.folders.create(createdFolderId, subFolderName, function (err, subFolderCreateResponse) {
-                    //             if (err) console.log(err);
-                    //             console.log('>>> ' + timestamp + ' Sub Folder created: ' + subFolderName);
-                    //         });
-                    //     });
-                    //     results.push(createResponse);
-                    // });
                 } else { // Else iterate through the returned results and test for a match.
                     let searchResults = queryResponse.entries;
                     
@@ -78,7 +43,7 @@ var BoxService = function () {
                 }
             });
         });
-        cb(null, { 'Folders created': results });
+        cb(null, 'Folders created');
     };
 
     var matchResults = function (searchResults, folderName) {
@@ -128,4 +93,4 @@ var BoxService = function () {
         createFolders: createFolders
     };
 };
-module.exports = BoxService;
+module.exports = BoxHRegService;
