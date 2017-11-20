@@ -4,16 +4,12 @@ const express = require('express');
 const indexRouter = express.Router();
 
 var router = function (client) {
-    var getDataService = require('../services/getDataService')();
-    var indexController = require('../controllers/indexController')(getDataService, client);
+    var indexController = require('../controllers/indexController')(client);
 
     indexRouter.route('/')
         .get(function (req, res) {
-            res.send('Data harvester.');
+            res.send('Housing Services data harvester.');
         });
-
-    indexRouter.route('/getData')
-        .get(indexController.getData);
 
     indexRouter.route('/postTask')
         .post(indexController.postTask);

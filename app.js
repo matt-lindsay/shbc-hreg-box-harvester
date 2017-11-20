@@ -11,11 +11,13 @@ var boxClient = require('./box');
 var box = new boxClient();
 
 var indexRouter = require('./src/routes/indexRoutes')(box);
+var hregRouter = require('./src/routes/hregRoutes')(box);
 var yearDateFormat = 'YYYY';
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', indexRouter);
+app.use('/hreg', hregRouter);
 
 app.locals.moment = moment;
 app.locals.yearDateFormat = yearDateFormat;
