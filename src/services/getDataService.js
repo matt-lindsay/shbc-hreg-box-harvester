@@ -1,4 +1,4 @@
-'Use Strict';
+'use strict';
 
 const sql = require('mssql');
 

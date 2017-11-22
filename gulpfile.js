@@ -1,4 +1,4 @@
-'Use Strict';
+'use strict';
 
 const gulp = require('gulp');
 const jshint = require('gulp-jshint');
@@ -10,7 +10,10 @@ var jsFiles = ['*.js', 'src/**/*.js'];
 gulp.task('style', function () {
     return gulp.src(jsFiles)
         .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
+        .pipe(jshint.reporter('jshint-stylish', {
+            verbose: true
+        }))
+        .pipe(jscs());
 });
 
 gulp.task('serve', ['style'], function () {
@@ -22,6 +25,6 @@ gulp.task('serve', ['style'], function () {
     };
     return nodemon(options)
         .on('restart', function (ev) {
-            console.log('Restarting....');
+            console.log('Restarting....' + ev);
         });
 });

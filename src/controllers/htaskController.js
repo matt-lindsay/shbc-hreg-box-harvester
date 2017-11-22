@@ -1,9 +1,5 @@
-'Use Strict';
+'use strict';
 
-const fs = require('fs');
-const path = require('path');
-const moment = require('moment');
-const arrayDiffer = require('array-differ');
 const BoxHTaskService = require('../services/BoxHTaskService');
 
 var htaskController = function (client) {

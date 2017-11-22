@@ -1,4 +1,4 @@
-'Use Strict';
+'use strict';
 
 const Box = require('box-node-sdk');
 
@@ -10,7 +10,6 @@ var boxClient = function () {
     var publicKeyPassphrase = process.env.boxKeyPassphrase;
     var boxEnterpriseId = process.env.boxEnterpriseId;
     var boxHousingUser = process.env.boxHousingUser;
-    var boxHousingFolder = process.env.boxHousingFolder;
 
     var sdk = new Box({
         clientID: boxClientID,

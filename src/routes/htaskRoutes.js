@@ -1,4 +1,4 @@
-'Use Strict';
+'use strict';
 
 const express = require('express');
 const htaskRouter = express.Router();

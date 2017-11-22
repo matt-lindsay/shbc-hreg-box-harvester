@@ -1,5 +1,7 @@
 // Remote execution script.
 
+"use strict";
+
 const http = require('http');
 let results = {};
 

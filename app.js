@@ -1,6 +1,5 @@
-'Use Strict';
+'use strict';
 
-const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
@@ -10,7 +9,7 @@ var boxClient = require('./box');
 
 var box = new boxClient();
 
-var indexRouter = require('./src/routes/indexRoutes')(box);
+var indexRouter = require('./src/routes/indexRoutes')();
 var hregRouter = require('./src/routes/hregRoutes')(box);
 var htaskRouter = require('./src/routes/htaskRoutes')(box);
 var yearDateFormat = 'YYYY';
@@ -25,6 +24,9 @@ app.locals.moment = moment;
 app.locals.yearDateFormat = yearDateFormat;
 
 app.listen(port, function (err) {
-    if (err) console.log(err);
-    console.log('Server is running on port ' + port);
+    if (err) {
+        console.log(err);
+    } else {
+        console.log('Server is running on port ' + port);   
+    }
 });

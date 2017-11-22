@@ -1,4 +1,4 @@
-'Use Strict';
+'use strict';
 
 const fs = require('fs');
 const moment = require('moment');
@@ -39,7 +39,7 @@ var BoxHRegService = function (client) {
                         createBoxFolders(client, folderName, subFolders, timestamp);
                         //results = true;
                     }, function (error) {
-                        console.log('>>> Folder already exists.');
+                        console.log('>>> Folder already exists.' + error);
                     });
                 }
             });
@@ -87,8 +87,11 @@ var BoxHRegService = function (client) {
             
             subFolders.forEach(function (subFolderName) {
                 client.folders.create(createdFolderId, subFolderName, function (err, secondSubFolderCreateResponse) {
-                    if (err) console.log(err);
-                    console.log('>>> ' + timestamp + ' Sub Folder created: ' + subFolderName);
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('>>> ' + timestamp + ' Sub Folder created: ' + secondSubFolderCreateResponse.name);                        
+                    }
                 });
             });
         });

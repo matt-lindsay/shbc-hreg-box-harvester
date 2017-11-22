@@ -1,4 +1,4 @@
-'Use Strict';
+'use strict';
 
 const fs = require('fs');
 const moment = require('moment');
@@ -96,7 +96,7 @@ var BoxHTaskService = function (client) {
                             console.log(err);
                             //cb(err, null); // TODO error handling here.
                         } else {
-                            console.log('>>> ' + timestamp + ' Sub Folder created: ' + subFolderName);
+                            console.log('>>> ' + timestamp + ' Sub Folder created: ' + secondSubFolderCreateResponse.name);
                         }
                     });
                 });

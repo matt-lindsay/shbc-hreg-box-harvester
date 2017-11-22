@@ -1,4 +1,4 @@
-'Use Strict';
+'use strict';
 
 const express = require('express');
 const hregRouter = express.Router();

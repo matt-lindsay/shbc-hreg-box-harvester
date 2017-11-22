@@ -1,6 +1,6 @@
-'Use Strict';
+'use strict';
 
-var indexController = function (client) {
+var indexController = function () {
 
     var welcome = function (req, res) {
         res.status(200).send('SHBC Housing Services data harvester.');
