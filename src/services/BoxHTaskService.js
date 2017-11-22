@@ -10,25 +10,91 @@ var BoxHTaskService = function (client) {
 
         let subFolders = JSON.parse(fs.readFileSync(__dirname + '/../data/subFolderArray.json'));
         var timestamp = moment().format('YYYY-MM-DD h:mm:ss a');
+        //var results = false;
 
+        // Create task folder name.
         let folderName = data.caseno + ' - ' + data.name;
+        // Remove any forward slashes.
         folderName = folderName.replace("/", "");
+        
+        // Check for a Housing Register case #.
+        if (data.hreg) {
+            client.search.query(data.hreg, { type: 'folder', ancestor_folder_ids: boxHousingFolder }, function (err, primarySearchResults) {
+                if (err) {
+                    cb(err, null);
+                } else {
+                    if (primarySearchResults.total_count === 0) {
+                        // TODO can't find h reg #, create the task separately.
+                        cb(null, 'Create the task separately.');
+                    } else { // Else create the task in the correct sub folder.
+                        // Identify the correct sub folder.
+                        client.folders.getItems(primarySearchResults.entries[0].id, null, function (err, secondarySearchResults) {
+                             if (err) {
+                                 cb(err, null);
+                             } else { // Else iterate through the returned results and test for a match.
+                                 let typeFolders = secondarySearchResults.entries;
+                                 
+                                 matchedResults(typeFolders, data.type).then(function (matchedResultsResponse) {
+                                     // Create sub folder.
+                                     createBoxFolder(client, matchedResultsResponse, folderName, timestamp, subFolders, function (err, createFolderResponse) {
+                                         if (err) {
+                                             cb(err, 'Create Box Folder');
+                                         } else {
+                                             cb(null, createFolderResponse);
+                                         }
+                                     });
+                                 }, function (error) {
+                                     cb(error);
+                                 });
+                             }
+                        });
+                    }
+                }
+            });
+        } else {
+            cb(null, 'no H REG case'); // TODO create a separate task folder.
+        }
 
-        client.folders.create(boxHousingFolder, folderName, function (err, response) {
+        //
+    };
+    
+    var matchedResults = function (subfolderResults, taskType) {
+        return new Promise(function (resolve, reject) {
+             
+            // Test each result returned in searchResults for a match with folderName.
+            // If a match is not returned create the folder.
+            let matched = false;
+            let matchedId;
+            
+            subfolderResults.forEach(function (item) {
+                if (item.name.match(taskType)) {
+                    matched = true;
+                    matchedId = item.id;
+                }
+            });
+            if (matched === true) {
+                resolve(matchedId); // Sub folder Id to create the task in.
+            } else if (matched === false) {
+                reject('nomatch'); // TODO Something is wrong: where is the correct sub folder?
+            }
+        });
+    };
+    
+    var createBoxFolder = function (client, parentId, folderName, timestamp, subFolders, cb) {
+        client.folders.create(parentId, folderName, function (err, response) {
             if (err) {
                 cb(err, null);
             } else {
-                console.log(response);
                 let createFolderName = response.name;
                 let createdFolderId = response.id;
     
-                console.log('>>> Task Folder created: ' + createFolderName);                       
+                console.log('>>> ' + timestamp + 'Task Folder created: ' + createFolderName);
                 
                 subFolders.forEach(function (subFolderName) {
                     client.folders.create(createdFolderId, subFolderName, function (err, secondSubFolderCreateResponse) {
                         if (err) {
                             console.log(err);
-                            cb(err, null);
+                            //cb(err, null); // TODO error handling here.
                         } else {
                             console.log('>>> ' + timestamp + ' Sub Folder created: ' + subFolderName);
                         }
