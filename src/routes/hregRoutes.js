@@ -3,9 +3,9 @@
 const express = require('express');
 const hregRouter = express.Router();
 
-var router = function (client) {
+var router = function () {
     var getDataService = require('../services/getDataService')();
-    var hregController = require('../controllers/hregController')(getDataService, client);
+    var hregController = require('../controllers/hregController')(getDataService);
 
     hregRouter.route('/getData')
         .get(hregController.getData);

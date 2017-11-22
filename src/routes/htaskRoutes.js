@@ -3,8 +3,8 @@
 const express = require('express');
 const htaskRouter = express.Router();
 
-var router = function (client) {
-    var htaskController = require('../controllers/htaskController')(client);
+var router = function () {
+    var htaskController = require('../controllers/htaskController')();
 
     htaskRouter.route('/postTask')
         .post(htaskController.postTask);

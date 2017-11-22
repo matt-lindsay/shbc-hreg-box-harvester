@@ -4,10 +4,13 @@ const fs = require('fs');
 const moment = require('moment');
 const arrayDiffer = require('array-differ');
 const BoxHRegService = require('../services/BoxHRegService');
+const boxClient = require('../resources/box');
 
-var hregController = function (getDataService, client) {
+var hregController = function (getDataService) {
 
     var getData = function (req, res) {
+        let client = new boxClient();
+        
         getDataService.getData(function (err, results) {
             if (err) {
                 res.status(500).send(err);
