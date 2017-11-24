@@ -24,8 +24,24 @@ var BoxHTaskService = function (client) {
                     cb(err, null);
                 } else {
                     if (primarySearchResults.total_count === 0) {
-                        // TODO can't find h reg #, create the task separately.
-                        cb(null, 'Create the task separately.');
+                        // Can't find h reg # in Task data, create the task separately.
+                        // !!! TIDY UP
+                        client.folders.create(boxHousingFolder, folderName, function (err, createTaskFolderResponse) {
+                           if (err) {
+                               cb(err, null);
+                           } else {
+                               subFolders.forEach(function (folderItem) {
+                                   client.folders.create(createTaskFolderResponse.id, folderItem, function (err, subfolderCreateResponse) {
+                                       if (err) {
+                                           console.log(err);
+                                       } else {
+                                           console.log('>>> ' + timestamp + ' Sub Folder created: ' + subfolderCreateResponse.name);
+                                       }
+                                   });
+                               });
+                               cb(null, 'Task folders created: ' + createTaskFolderResponse.name);
+                           }
+                        }); // !!!
                     } else { // Else create the task in the correct sub folder.
                         // Identify the correct sub folder.
                         client.folders.getItems(primarySearchResults.entries[0].id, null, function (err, secondarySearchResults) {
@@ -52,10 +68,26 @@ var BoxHTaskService = function (client) {
                 }
             });
         } else {
-            cb(null, 'no H REG case'); // TODO create a separate task folder.
+            // Create a separate task folder.
+            // !!! TIDY UP
+            client.folders.create(boxHousingFolder, folderName, function (err, createTaskFolderResponse) {
+               if (err) {
+                   cb(err, null);
+               } else {
+                   subFolders.forEach(function (folderItem) {
+                       client.folders.create(createTaskFolderResponse.id, folderItem, function (err, subfolderCreateResponse) {
+                           if (err) {
+                               console.log(err);
+                           } else {
+                               console.log('>>> ' + timestamp + ' Sub Folder created: ' + subfolderCreateResponse.name);
+                           }
+                       });
+                   });
+                   cb(null, 'Task folders created: ' + createTaskFolderResponse.name);
+               }
+            }); // !!!
+            //cb(null, 'no H REG case'); 
         }
-
-        //
     };
     
     var matchedResults = function (subfolderResults, taskType) {

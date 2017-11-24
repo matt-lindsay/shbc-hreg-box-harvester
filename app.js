@@ -5,9 +5,6 @@ const bodyParser = require('body-parser');
 const moment = require('moment');
 const app = express();
 var port = process.env.PORT || 3000;
-//var boxClient = require('./box');
-
-//var box = new boxClient();
 
 var indexRouter = require('./src/routes/indexRoutes')();
 var hregRouter = require('./src/routes/hregRoutes')();
