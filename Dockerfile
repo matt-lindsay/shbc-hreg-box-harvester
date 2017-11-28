@@ -1,6 +1,17 @@
 # Use nodejs LTS source
 FROM node:boron
 
+# Add envrionment variables
+ENV PORT ****
+ENV boxClientID ****
+ENV boxClientSecret ****
+ENV boxEnterpriseId ****
+ENV boxHousingFolder ****
+ENV boxHousingUser ****
+ENV boxKeyID ****
+ENV boxKeyPassphrase ****
+ENV boxPrivateKey ****
+
 # Create app directory
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
