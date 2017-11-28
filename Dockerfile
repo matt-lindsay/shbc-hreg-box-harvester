@@ -1,5 +1,5 @@
 # Use nodejs LTS source
-FROM node:carbon
+FROM node:boron
 
 # Create app directory
 RUN mkdir -p /usr/src/app
