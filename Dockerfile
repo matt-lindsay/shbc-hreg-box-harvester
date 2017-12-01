@@ -17,7 +17,7 @@ RUN npm install
 COPY . .
 
 # Add envrionment variables
-ENV PORT ****
+ENV PORT 8080
 ENV boxClientID ****
 ENV boxClientSecret ****
 ENV boxEnterpriseId ****
