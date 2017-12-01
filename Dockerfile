@@ -17,15 +17,15 @@ RUN npm install
 COPY . .
 
 # Add envrionment variables
-#ENV PORT
-#ENV boxClientID
-#ENV boxClientSecret
-#ENV boxEnterpriseId
-#ENV boxHousingFolder
-#ENV boxHousingUser
-#ENV boxKeyID
-#ENV boxKeyPassphrase
-#ENV boxPrivateKey
+ENV PORT ****
+ENV boxClientID ****
+ENV boxClientSecret ****
+ENV boxEnterpriseId ****
+ENV boxHousingFolder ****
+ENV boxHousingUser ****
+ENV boxKeyID ****
+ENV boxKeyPassphrase ****
+ENV boxPrivateKey ****
 
 # Create app directory
 #RUN mkdir -p /usr/src/app
