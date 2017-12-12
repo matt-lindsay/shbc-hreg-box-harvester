@@ -18,8 +18,8 @@ var htaskController = function () {
                 res.status(201).send(result);   
             }
         });
-        //console.log(data); // DEBUG TASK SYSTEM OUTPUT TO CONSOLE.
-        //res.status(200).send(data);
+        // console.log(data); // DEBUG TASK SYSTEM OUTPUT TO CONSOLE.
+        // res.status(200).send(data);
     };
 
     return {

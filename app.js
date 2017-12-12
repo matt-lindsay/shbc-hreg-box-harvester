@@ -1,5 +1,6 @@
 'use strict';
 
+const dotenv = require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
@@ -24,6 +25,6 @@ app.listen(port, function (err) {
     if (err) {
         console.log(err);
     } else {
-        console.log('Server is running on port ' + port);   
+        console.log('Server is running on port ' + port);
     }
 });
