@@ -26,6 +26,11 @@ ENV boxHousingUser ****
 ENV boxKeyID ****
 ENV boxKeyPassphrase ****
 ENV boxPrivateKey ****
+ENV db ****
+ENV dbpass ****
+ENV dbsql ****
+ENV dbsvr ****
+ENV dbuser ****
 
 # Create app directory
 #RUN mkdir -p /usr/src/app
