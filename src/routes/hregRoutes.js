@@ -3,7 +3,7 @@
 const express = require('express');
 const hregRouter = express.Router();
 
-var router = function () {
+var router = function() {
     var getDataService = require('../services/getDataService')();
     var hregController = require('../controllers/hregController')(getDataService);
 
@@ -11,5 +11,5 @@ var router = function () {
         .get(hregController.getData);
 
     return hregRouter;
-};
+  };
 module.exports = router;

@@ -43,7 +43,7 @@ var BoxHRegService = function(client) {
                         createBoxFolders(client, folderName, subFolders, timestamp);
                         //results = true;
                       }, function(error) {
-                        console.log('>>> Folder already exists.' + error);
+                        console.log('>>> Folder already exists: ' + error);
                       });
                   }
                 });
