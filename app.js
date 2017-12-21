@@ -21,10 +21,10 @@ app.use('/htask', htaskRouter);
 app.locals.moment = moment;
 app.locals.yearDateFormat = yearDateFormat;
 
-app.listen(port, function (err) {
+app.listen(port, function(err) {
     if (err) {
-        console.log(err);
+      console.log(err);
     } else {
-        console.log('Server is running on port ' + port);
+      console.log('Server is running on port ' + port);
     }
-});
+  });
