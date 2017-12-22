@@ -1,10 +1,10 @@
 'use strict';
 
 const fs = require('fs');
-const moment = require('moment');
 const boxHousingFolder = process.env.boxHousingFolder;
 
 var BoxHTaskService = function(client) {
+    let moment = require('moment');
 
     var createTaskFolders = function(data, cb) {
 

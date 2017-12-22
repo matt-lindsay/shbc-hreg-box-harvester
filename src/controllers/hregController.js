@@ -1,12 +1,12 @@
 'use strict';
 
 const fs = require('fs');
-const moment = require('moment');
 const BoxHRegService = require('../services/BoxHRegService');
 const boxClient = require('../resources/box');
 
 var hregController = function(getDataService) {
-    const arrayDiffer = require('array-differ');
+    let moment = require('moment');
+    let arrayDiffer = require('array-differ');
 
     var getData = function(req, res) {
         let client = new boxClient();

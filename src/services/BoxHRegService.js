@@ -1,11 +1,10 @@
 'use strict';
 
 const fs = require('fs');
-const moment = require('moment');
 const boxHousingFolder = process.env.boxHousingFolder;
 
 var BoxHRegService = function(client) {
-
+    let moment = require('moment');
     //var timestamp = moment().format('YYYY-MM-DD h:mm:ss a');
 
     var createFolders = function(data, cb) {
