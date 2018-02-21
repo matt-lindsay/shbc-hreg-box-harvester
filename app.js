@@ -5,11 +5,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const app = express();
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
+
+var BoxClient = require('./src/resources/box');
+let client = new BoxClient();
 
 var indexRouter = require('./src/routes/indexRoutes')();
-var hregRouter = require('./src/routes/hregRoutes')();
-var htaskRouter = require('./src/routes/htaskRoutes')();
+var hregRouter = require('./src/routes/hregRoutes')(client);
+var htaskRouter = require('./src/routes/htaskRoutes')(client);
 var yearDateFormat = 'YYYY';
 
 app.use(bodyParser.json());

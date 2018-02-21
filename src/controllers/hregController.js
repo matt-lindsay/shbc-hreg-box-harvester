@@ -2,14 +2,14 @@
 
 const fs = require('fs');
 const BoxHRegService = require('../services/BoxHRegService');
-const boxClient = require('../resources/box');
+//const boxClient = require('../resources/box');
 
-var hregController = function(getDataService) {
+var hregController = function(getDataService, client) {
     let moment = require('moment');
     let arrayDiffer = require('array-differ');
 
     var getData = function(req, res) {
-        let client = new boxClient();
+        //let client = new boxClient();
 
         getDataService.getData(function(err, results) {
             if (err) {

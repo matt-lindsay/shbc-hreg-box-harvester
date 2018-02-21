@@ -1,11 +1,11 @@
 'use strict';
 
 const BoxHTaskService = require('../services/BoxHTaskService');
-const boxClient = require('../resources/box');
+//const boxClient = require('../resources/box');
 
-var htaskController = function() {
+var htaskController = function(client) {
     var postTask = function(req, res) {
-        let client = new boxClient();
+        //let client = new boxClient();
 
         let data = req.body;
 
