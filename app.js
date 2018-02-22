@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const moment = require('moment');
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 var BoxClient = require('./src/resources/box');
 let client = new BoxClient();
